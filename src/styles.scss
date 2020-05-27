@@ -1,1 +1,26 @@
 /* You can add global styles to this file, and also import other style files */
+
+@import url('https://fonts.googleapis.com/css?family=Poppins:300,700');
+
+body {
+    background: #142f45;
+    padding: 3em;
+    font-family: 'Poppins', 'Arial';
+    color: #f58220;
+}
+ul {
+    list-style-type: circle;
+    margin: 0 0 2em 0;
+    padding: 0;
+}
+ul li {
+    display: inline;
+    margin-right: 30px;
+}
+ul li a {
+    font-size: 1.5em;
+}
+a {
+    color: #fff;
+    text-decoration: none;
+}
