@@ -1,5 +1,30 @@
-<ul>
-  <li *ngFor="let player of players">{{ player.firstName }} "{{ player.nickname }}" {{ player.lastName }}</li>
-</ul>
+<div class="col" *ngFor="let player of players">
+  <span>
+      {{ player.firstName }} "{{ player.nickname }}" {{ player.lastName }}
+    </span>
+    <span class="button removebtn"  (click)="removePlayer(player)">Click to remove player</span>
+</div>
+
+<input class="button fixed" type="submit" value="Register new player" (click)="openForm()">
+
+<div class="form-popup" id="myForm">
+    <form action="/action_page.php" class="form-container">
+      <h1>Register player</h1>
+  
+      <label for="firstname"><b>First Name</b></label>
+      <input type="text" placeholder="Enter First Name" name="firstname" required>
+  
+      <label for="lastname"><b>Last Name</b></label>
+      <input type="text" placeholder="Enter Last Name" name="lastname" required>
+
+      <label for="nickname"><b>Nickname</b></label>
+      <input type="text" placeholder="Enter nickname (must be unique)" name="nickname" required>
+  
+      <button type="submit" class="btn" (click)="addPlayer()">Register</button>
+      <button type="submit" class="btn cancel" (click)="closeForm()">Cancel</button>
+    </form>
+  </div> 
+
+
 
 <!-- {{ players | json }} -->

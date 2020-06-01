@@ -23,7 +23,24 @@ export class PlayersComponent implements OnInit {
         if (resp.status === 200) {
           this.players = resp.body;
         }
-        console.log(this.players);
       });
   }
+
+  removePlayer(player: any): void {
+
+  }
+
+  addPlayer(): void {
+    alert('Player Added');
+    this.closeForm();
+  }
+
+  openForm() {
+    document.getElementById('myForm').style.display = 'block';
+  }
+
+  closeForm() {
+    document.getElementById('myForm').style.display = 'none';
+  }
+
 }
