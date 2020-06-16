@@ -14,8 +14,12 @@ export class PlayersService {
     return this.http.get('http://localhost:8090/getallplayers', { observe: 'response' });
   }
 
-  addPlayer(player: any): Observable<HttpResponse<any>> {
-    return this.http.post('http://localhost:8090/regplayer', player, { observe: 'response' });
+ deletePlayer(nickname: string): Observable<HttpResponse<any>> {
+    return this.http.post('http://localhost:8090/deleteplayer', nickname, {observe: 'response' });
+  }
+
+  addPlayer(playerToAdd: string): Observable<HttpResponse<any>> {
+    return this.http.post('http://localhost:8090/regplayer', playerToAdd, { observe: 'response' });
   }
 
 }
