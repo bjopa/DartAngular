@@ -24,7 +24,7 @@ export class PlayersComponent implements OnInit {
       .getAllPlayers()
       .toPromise()
       .then((resp) => {
-        console.log(resp);
+        console.log(resp.status);
         if (resp.status === 200) {
           console.log('Players fetched');
           this.players = resp.body;
@@ -37,14 +37,11 @@ export class PlayersComponent implements OnInit {
     .deletePlayer(nickname)
     .toPromise()
     .then((resp) => {
-      console.log('REMOVED1');
-      if (resp.status === 200) {
-        console.log('REMOVED2');
-      }
-    }).catch(() => {
-      console.log('ERROR deleting');
+      console.log(resp.status);
+      this.getAllPlayers();
+    }).catch((e) => {
+      console.log('ERROR deleting - ', e);
     });
-    this.getAllPlayers();
   }
 
   addPlayer(): void {
@@ -52,16 +49,16 @@ export class PlayersComponent implements OnInit {
     this.playersService
     .addPlayer(this.playerToAdd)
     .toPromise()
-    .then(() => {
-      console.log('ADDED');
-    }).catch(() => {
-      console.log('ERROR adding');
+    .then((resp) => {
+      console.log(resp.status);
+      this.getAllPlayers();
+      this.closeForm();
+      this.firstname = '';
+      this.lastname = '';
+      this.nickname = '';
+    }).catch((e) => {
+      console.log('ERROR adding - ', e);
     });
-    this.getAllPlayers();
-    this.closeForm();
-    this.firstname = '';
-    this.lastname = '';
-    this.nickname = '';
   }
 
   openForm() {
