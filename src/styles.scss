@@ -9,7 +9,7 @@ body {
     color: #f58220;
 }
 ul {
-    list-style-type: circle;
+    list-style-type: none;
     margin: 0 0 2em 0;
     padding: 0;
 }
@@ -23,4 +23,15 @@ ul li a {
 a {
     color: #fff;
     text-decoration: none;
+}
+
+.btn {
+    border: 0;
+    display: block;
+    padding: 1em 3em;
+    background: #f58220;
+    color: #fff;
+    font-weight: bold;
+    margin: 0 auto 1em auto;
+    cursor: pointer;
 }
