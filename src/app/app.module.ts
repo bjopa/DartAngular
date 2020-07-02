@@ -8,13 +8,17 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { PlayersComponent } from './players/players.component';
 import { RulesComponent } from './rules/rules.component';
+import { HighscoresComponent } from './highscores/highscores.component';
+import { GameComponent } from './game/game.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     PlayersComponent,
-    RulesComponent
+    RulesComponent,
+    HighscoresComponent,
+    GameComponent
   ],
   imports: [
     BrowserModule,
