@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { GameService } from './game.service';
+import { PlayersService } from '../players/players.service';
 
 @Component({
   selector: 'app-game',
@@ -7,10 +8,23 @@ import { GameService } from './game.service';
   styleUrls: ['./game.component.scss']
 })
 export class GameComponent implements OnInit {
+  players: any;
 
-  constructor(private gameService: GameService) { }
+  constructor(private gameService: GameService, private playersService: PlayersService) { }
 
   ngOnInit(): void {
+  }
+
+  prepareGame(): void {
+    this.playersService
+      .getAllPlayers()
+      .toPromise()
+      .then((resp) => {
+        if (resp.status === 200) {
+          console.log(resp.body);
+          this.players = resp.body;
+        }
+      });
   }
 
   newGame(): void {
