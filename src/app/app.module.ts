@@ -10,6 +10,7 @@ import { PlayersComponent } from './players/players.component';
 import { RulesComponent } from './rules/rules.component';
 import { HighscoresComponent } from './highscores/highscores.component';
 import { GameComponent } from './game/game.component';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,10 @@ import { GameComponent } from './game/game.component';
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    //nedan för multiselect
+    BrowserModule,
+    NgSelectModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -9,9 +9,13 @@ export class GameService {
 
   constructor(private http: HttpClient) { }
 
-  newGame(): Observable<HttpResponse<any>> {
-    return this.http.get('http://localhost:8090/newgame', {observe: 'response'});
+  addGame(selected): Observable<HttpResponse<any>> {
+    console.log('Selected: ' + selected);
+    return this.http.post('http://localhost:8090/addgame', selected, {observe: 'response'});
   }
 
+  reportThrow(throwdata): Observable<HttpResponse<any>> {
+    return this.http.post('http://localhost:8090/reportthrow', throwdata , {observe: 'response'});
+  }
 
 }
