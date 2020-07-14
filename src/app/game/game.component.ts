@@ -23,14 +23,19 @@ export class GameComponent implements OnInit {
   singleScore = 0; // score for single dart
   roundScore = 0; // score for three darts in round
   hitCounter = 0; // count no of hits per round (1-3)
+  scores = []; // stores current standings in weird array from object
+  resultList = []; // combined array for displaying in html
 
   currentGameId = ''; // game number in db
+  gameFinished = false; // control variable, if a game is finished
 
   fullPlayerList = []; // all players available for selection
   selected = []; // selected players from full
   currentPlayerNick = ''; // current players nick
   currentPlayerCounter = 0; // index of current player
   numberOfPlayers = 0; // total no of players in game
+
+  storageData: any;
 
   constructor(
     private gameService: GameService,
@@ -39,8 +44,9 @@ export class GameComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    document.getElementById('selector').style.display = 'grid'; // block
-    document.getElementById('gameboard').style.display = 'none'; // none
+    document.getElementById('selector').style.display = 'none'; // block
+    document.getElementById('gameboard').style.display = 'grid'; // none
+    document.getElementById('results').style.display = 'none'; // none
     this.getPlayers();
   }
 
@@ -51,7 +57,6 @@ export class GameComponent implements OnInit {
       .then((resp) => {
         if (resp.status === 200) {
           this.players = resp.body;
-          console.log(this.players);
         }
       })
       .then(() => {
@@ -60,7 +65,6 @@ export class GameComponent implements OnInit {
   }
 
   addPlayersToSelection(): void {
-    let i = 1;
     this.fullPlayerList = []; // Behövs för att kunna läsa in
     this.players.forEach((player) => {
       this.fullPlayerList.push(player.nickname);
@@ -68,7 +72,8 @@ export class GameComponent implements OnInit {
   }
 
   initGame(): void {
-    if (this.selected.length >= 1) {
+    sessionStorage.clear();
+    if (this.selected.length >= 2) {
       if (
         window.confirm('Start game with ' + this.selected.length + ' players?')
       ) {
@@ -77,8 +82,9 @@ export class GameComponent implements OnInit {
         this.currentPlayerNick = this.selected[this.currentPlayerCounter];
         this.numberOfPlayers = this.selected.length;
         this.selected.forEach((nick) => {
-          localStorage.setItem(nick, '0');
+          sessionStorage.setItem(nick, '0');
         });
+        this.storageData = sessionStorage;
       }
     } else {
       alert('Please select a minimum of 2 players');
@@ -88,12 +94,13 @@ export class GameComponent implements OnInit {
   addGame(selected): void {
     document.getElementById('selector').style.display = 'none';
     document.getElementById('gameboard').style.display = 'grid';
+    document.getElementById('results').style.display = 'none';
     this.gameService
       .addGame(selected)
       .toPromise()
       .then((resp) => {
         this.currentGameId = resp.body;
-        console.log('New GameId: ' + this.currentGameId);
+        this.createStandings();
       })
       .catch((resp) => {
         console.log('game.components => addGame: failed');
@@ -105,12 +112,19 @@ export class GameComponent implements OnInit {
    */
 
   dartThrown(hit: string) {
-    if (window.confirm('Confirm hit on ' + hit)) {
-      // test
-      this.dartNumber = this.roundNo + (2 * (this.roundNo - 1)) + (3 - this.arrowsLeft);
+    // if (!this.gameFinished) {
+    if (!this.gameFinished && window.confirm('Confirm hit on ' + hit)) {
+      // kolla om man träffat target
+      const correctHit = this.checkHit(hit, this.currentTarget);
+
+      // bestäm pilnr totalt per spelare - ANVÄNDS???
+      this.dartNumber =
+        this.roundNo + 2 * (this.roundNo - 1) + (3 - this.arrowsLeft);
+
       // minska kvarvarande antal pilar
       this.arrowsLeft--;
-      // poängräkning en pil och summering per runda
+
+      // poängräkning en pil
       switch (hit.substring(0, 1)) {
         case 'S':
           this.singleScore = parseInt(hit.substring(1), 10);
@@ -136,35 +150,41 @@ export class GameComponent implements OnInit {
           this.singleScore = 0;
           break;
       }
-      this.roundScore = this.roundScore + this.singleScore;
-      if (
-        this.roundNo === 6 &&
-        this.hitCounter !== 3 &&
-        this.roundScore !== 41
-      ) {
-        this.roundScore = 0;
-      }
+
+      // summering per pil
+      this.roundScore = correctHit ? this.roundScore + this.singleScore : this.roundScore;
+
       // slut på spelares omgång
       if (this.arrowsLeft === 0) {
+
+        // kolla om 41 var korrekt
+        if (
+          this.roundNo === 6 &&
+          (this.hitCounter !== 3 || this.roundScore !== 41)
+        ) {
+          this.roundScore = 0;
+        }
+
         // hämta, räkna om och spara totalpoäng för spelare
         const savedScore = parseInt(
-          localStorage.getItem(this.currentPlayerNick),
+          sessionStorage.getItem(this.currentPlayerNick),
           10
         );
         const totalScore =
           this.roundScore === 0
             ? Math.ceil(savedScore / 2)
             : savedScore + this.roundScore;
-        localStorage.setItem(this.currentPlayerNick, totalScore.toString());
-        console.log(
-          this.currentPlayerNick +
-            ' points: ' +
-            localStorage.getItem(this.currentPlayerNick)
-        );
+        sessionStorage.setItem(this.currentPlayerNick, totalScore.toString());
+
+        // sortera aktuell ställning för resultatlista
+        this.createStandings();
+
         // återställ kontrollvariabler
+        this.hitCounter = 0;
         this.arrowsLeft = 3;
         this.currentPlayerCounter++;
         this.roundScore = 0;
+
         // slut på en full runda
         if (this.currentPlayerCounter === this.numberOfPlayers) {
           this.currentTarget = this.targets[this.roundNo];
@@ -172,25 +192,66 @@ export class GameComponent implements OnInit {
           this.currentPlayerCounter = 0;
         }
         this.currentPlayerNick = this.selected[this.currentPlayerCounter];
+
         // om spelet är slut
         if (this.roundNo === 9) {
-          // TODO skicka data för alla spelare
-          console.log('GAME ENDED');
-          this.selected.forEach(nick => {
-            console.log(nick + ': ' + localStorage.getItem(nick));
-          });
-        }
+          // 9
 
+          // TODO skicka data för alla spelare
+
+          // sätt variabler till rätt värde
+          this.gameFinished = true;
+          document.getElementById('selector').style.display = 'none';
+          document.getElementById('gameboard').style.display = 'none';
+          document.getElementById('results').style.display = 'block';
+        }
       }
     }
   }
 
-  checkHit(hit: string): boolean {
-    return hit.substring(1) === this.currentTarget;
+  checkHit(hit: string, target: string): boolean {
+    if (target === 'Triple' || target === 'Double' || target === 'Bulls Eye') {
+      if (hit.substring(0, 1) === target.substring(0, 1)) {
+        return true;
+      }
+      return false;
+    } else if (
+      target === '19' ||
+      target === '18' ||
+      target === '17' ||
+      target === '20'
+    ) {
+      if (hit.substring(1) === target) {
+        return true;
+      }
+      return false;
+    } else if (target === '41') {
+      if (hit.substring(1) !== '0') {
+        return true;
+      }
+      return false;
+    }
+  }
+
+  // Skapa Standings-listan
+  createStandings(): void {
+    this.scores = Object.keys(this.storageData).map((key) => [
+      key,
+      this.storageData[key],
+    ]);
+    this.scores = this.scores.sort((a, b) => b[1] - a[1]);
+    this.resultList.splice(0, this.resultList.length);
+    // tslint:disable-next-line: prefer-for-of
+    for (let i = 0; i < this.scores.length; i++) {
+      this.resultList.push({
+        name: this.scores[i][0],
+        score: this.scores[i][1],
+      });
+    }
   }
 
   // TODO rename as cancel?? eller ngt annat fiffgt....
-  home(): void {
+  abortGame(): void {
     this.router.navigateByUrl('/');
   }
 }

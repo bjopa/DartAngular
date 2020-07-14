@@ -15,8 +15,9 @@
 <div class="fullscreen" id="gameboard">
   <div class="dartboard">
     <img src="./assets/images/dartboard.png" usemap="#image-map" />
-    <map name="image-map">
+    <map class="dartboard" name="image-map">
       <area
+        class="boardarea"
         (click)="dartThrown('D20')"
         target=""
         alt="D20"
@@ -25,6 +26,7 @@
         shape="poly"
       />
       <area
+        class="boardarea"
         (click)="dartThrown('S20')"
         target=""
         alt="S20"
@@ -33,6 +35,7 @@
         shape="poly"
       />
       <area
+        class="boardarea"
         (click)="dartThrown('T20')"
         target=""
         alt="T20"
@@ -41,6 +44,7 @@
         shape="poly"
       />
       <area
+        class="boardarea"
         (click)="dartThrown('S20')"
         target=""
         alt="S20"
@@ -50,6 +54,7 @@
       />
 
       <area
+        class="boardarea"
         (click)="dartThrown('D19')"
         target=""
         alt="D19"
@@ -58,14 +63,16 @@
         shape="poly"
       />
       <area
+        class="boardarea"
         (click)="dartThrown('S19')"
         target=""
-        alt="S19_1"
+        alt="S19"
         title="S19_1"
         coords="215, 482, 243, 429, 260, 436, 280, 442, 272, 501, 243, 494"
         shape="poly"
       />
       <area
+        class="boardarea"
         (click)="dartThrown('T19')"
         target=""
         alt="T19"
@@ -74,495 +81,755 @@
         shape="poly"
       />
       <area
+        class="boardarea"
         (click)="dartThrown('S19')"
         target=""
-        alt="S19_2"
+        alt="S19"
         title="S19_2"
         coords="250, 416, 296, 325, 301, 328, 285, 429, 267, 423"
         shape="poly"
       />
 
       <area
+        class="boardarea"
         (click)="dartThrown('D18')"
         target=""
         alt="D18"
         title="D18"
-        coords=""
+        coords="406, 115, 436, 133, 459, 154, 448, 167, 426, 147, 399, 130"
         shape="poly"
       />
       <area
-        (click)="dartThrown('S18_1')"
+        class="boardarea"
+        (click)="dartThrown('S18')"
         target=""
         alt="S18"
-        title="S18"
-        coords=""
+        title="S18_1"
+        coords="397, 133, 419, 146, 446, 169, 404, 211, 388, 198, 370, 187"
         shape="poly"
       />
       <area
+        class="boardarea"
         (click)="dartThrown('T18')"
         target=""
         alt="T18"
         title="T18"
-        coords=""
+        coords="369, 189, 388, 201, 400, 213, 395, 219, 380, 206, 365, 197"
+        shape="poly"
+      />
+      <area
+        class="boardarea"
+        (click)="dartThrown('S18')"
+        target=""
+        alt="S18"
+        title="S18_2"
+        coords="364, 199, 381, 209, 393, 222, 323, 291, 318, 287"
         shape="poly"
       />
 
       <area
+        class="boardarea"
         (click)="dartThrown('D17')"
         target=""
         alt="D17"
         title="D17"
-        coords=""
+        coords="339, 521, 370, 514, 402, 501, 395, 485, 367, 497, 337, 504"
         shape="poly"
       />
       <area
-        (click)="dartThrown('S17_1')"
+        class="boardarea"
+        (click)="dartThrown('S17')"
         target=""
         alt="S17"
-        title="S17"
-        coords=""
+        title="S17_1"
+        coords="326, 442, 346, 438, 365, 430, 394, 484, 365, 496, 337, 502"
         shape="poly"
       />
       <area
+        class="boardarea"
         (click)="dartThrown('T17')"
         target=""
         alt="T17"
         title="T17"
-        coords=""
+        coords="360, 420, 364, 428, 346, 436, 326, 440, 325, 430, 343, 426"
+        shape="poly"
+      />
+      <area
+        class="boardarea"
+        (click)="dartThrown('S17')"
+        target=""
+        alt="S17"
+        title="S17_2"
+        coords="361, 417, 343, 425, 324, 429, 308, 329, 314, 328"
         shape="poly"
       />
 
       <area
+        class="boardarea"
         (click)="dartThrown('D16')"
         target=""
         alt="D16"
         title="D16"
-        coords=""
+        coords="113, 404, 128, 397, 144, 424, 163, 447, 150, 457, 128, 431"
         shape="poly"
       />
       <area
-        (click)="dartThrown('S16_1')"
+        class="boardarea"
+        (click)="dartThrown('S16')"
         target=""
         alt="S16"
-        title="S16"
-        coords=""
+        title="S16_1"
+        coords="130, 396, 184, 368, 192, 384, 207, 401, 164, 444, 145, 421"
         shape="poly"
       />
       <area
-        (click)="dartThrown('T20')"
+        class="boardarea"
+        (click)="dartThrown('T16')"
         target=""
         alt="T16"
         title="T16"
-        coords=""
+        coords="186, 368, 195, 364, 204, 378, 216, 393, 208, 400, 195, 383"
+        shape="poly"
+      />
+      <area
+        class="boardarea"
+        (click)="dartThrown('S16')"
+        target=""
+        alt="S16"
+        title="S16_2"
+        coords="197, 362, 286, 316, 290, 319, 217, 391, 204, 376"
         shape="poly"
       />
 
       <area
+        class="boardarea"
         (click)="dartThrown('D15')"
         target=""
         alt="D15"
         title="D15"
-        coords=""
+        coords="458, 460, 446, 450, 468, 424, 483, 401, 496, 407, 484, 430"
         shape="poly"
       />
       <area
-        (click)="dartThrown('S15_1')"
+        class="boardarea"
+        (click)="dartThrown('S15')"
         target=""
         alt="S15"
-        title="S15"
-        coords=""
+        title="S15_1"
+        coords="403, 405, 416, 389, 427, 373, 479, 399, 465, 424, 444, 447"
         shape="poly"
       />
       <area
+        class="boardarea"
         (click)="dartThrown('T15')"
         target=""
         alt="T15"
         title="T15"
-        coords=""
+        coords="394, 396, 406, 383, 416, 367, 424, 371, 414, 385, 400, 401"
+        shape="poly"
+      />
+      <area
+        class="boardarea"
+        (click)="dartThrown('S15')"
+        target=""
+        alt="S15"
+        title="S15_2"
+        coords="322, 325, 325, 320, 413, 366, 404, 379, 392, 394"
         shape="poly"
       />
 
       <area
+        class="boardarea"
         (click)="dartThrown('D14')"
         target=""
         alt="D14"
         title="D14"
-        coords=""
+        coords="114, 210, 128, 217, 117, 242, 109, 272, 94, 270, 102, 238"
         shape="poly"
       />
       <area
-        (click)="dartThrown('S14_1')"
+        class="boardarea"
+        (click)="dartThrown('S14')"
         target=""
         alt="S14"
-        title="S14"
-        coords=""
+        title="S14_1"
+        coords="113, 273, 120, 243, 131, 218, 184, 245, 175, 263, 171, 283"
         shape="poly"
       />
       <area
+        class="boardarea"
         (click)="dartThrown('T14')"
         target=""
         alt="T14"
         title="T14"
-        coords=""
+        coords="186, 246, 194, 251, 188, 267, 184, 284, 175, 283, 179, 265"
+        shape="poly"
+      />
+      <area
+        class="boardarea"
+        (click)="dartThrown('S14')"
+        target=""
+        alt="S14"
+        title="S14_2"
+        coords="186, 285, 191, 267, 197, 252, 285, 296, 284, 300"
         shape="poly"
       />
 
       <area
+        class="boardarea"
         (click)="dartThrown('D13')"
         target=""
         alt="D13"
         title="D13"
-        coords=""
+        coords="486, 218, 499, 211, 510, 237, 519, 274, 504, 277, 497, 248"
         shape="poly"
       />
       <area
-        (click)="dartThrown('S13_1')"
+        class="boardarea"
+        (click)="dartThrown('S13')"
         target=""
         alt="S13"
-        title="S13"
-        coords=""
+        title="S13_1"
+        coords="482, 220, 492, 243, 500, 277, 442, 286, 438, 269, 430, 247"
         shape="poly"
       />
       <area
+        class="boardarea"
         (click)="dartThrown('T13')"
         target=""
         alt="T13"
         title="T13"
-        coords=""
+        coords="426, 250, 432, 264, 438, 286, 429, 288, 426, 271, 419, 253"
+        shape="poly"
+      />
+      <area
+        class="boardarea"
+        (click)="dartThrown('S13')"
+        target=""
+        alt="S13"
+        title="S13_2"
+        coords="416, 254, 422, 270, 427, 288, 330, 304, 328, 299"
         shape="poly"
       />
 
       <area
+        class="boardarea"
         (click)="dartThrown('D12')"
         target=""
         alt="D12"
         title="D12"
-        coords=""
+        coords="156, 153, 178, 133, 206, 116, 214, 130, 189, 145, 167, 164"
         shape="poly"
       />
       <area
-        (click)="dartThrown('S12_1')"
+        class="boardarea"
+        (click)="dartThrown('S12')"
         target=""
         alt="S12"
-        title="S12"
-        coords=""
+        title="S12_1"
+        coords="170, 166, 190, 148, 216, 134, 243, 186, 228, 194, 211, 208"
         shape="poly"
       />
       <area
+        class="boardarea"
         (click)="dartThrown('T12')"
         target=""
         alt="T12"
         title="T12"
-        coords=""
+        coords="214, 210, 227, 200, 244, 189, 248, 196, 233, 206, 220, 217"
+        shape="poly"
+      />
+      <area
+        class="boardarea"
+        (click)="dartThrown('S12')"
+        target=""
+        alt="S12"
+        title="S12_2"
+        coords="222, 219, 234, 208, 250, 199, 296, 288, 293, 290"
         shape="poly"
       />
 
       <area
+        class="boardarea"
         (click)="dartThrown('D11')"
         target=""
         alt="D11"
         title="D11"
-        coords=""
+        coords="93, 274, 91, 304, 92, 339, 108, 337, 106, 306, 108, 276"
         shape="poly"
       />
       <area
-        (click)="dartThrown('S11_1')"
+        class="boardarea"
+        (click)="dartThrown('S11')"
         target=""
         alt="S11"
-        title="S11"
-        coords=""
+        title="S11_1"
+        coords="112, 276, 109, 303, 111, 336, 170, 326, 168, 309, 170, 286"
         shape="poly"
       />
       <area
+        class="boardarea"
         (click)="dartThrown('T11')"
         target=""
         alt="T11"
         title="T11"
-        coords=""
+        coords="174, 325, 172, 306, 174, 287, 182, 288, 181, 304, 182, 324"
+        shape="poly"
+      />
+      <area
+        class="boardarea"
+        (click)="dartThrown('S11')"
+        target=""
+        alt="S11"
+        title="S11_2"
+        coords="186, 288, 184, 304, 185, 324, 285, 308, 286, 304"
         shape="poly"
       />
 
       <area
-        (click)="dartThrown('D20')"
+        class="boardarea"
+        (click)="dartThrown('D10')"
         target=""
         alt="D10"
         title="D10"
-        coords=""
+        coords="503, 342, 519, 345, 512, 375, 499, 405, 485, 398, 497, 370"
         shape="poly"
       />
       <area
-        (click)="dartThrown('D20')"
+        class="boardarea"
+        (click)="dartThrown('S10')"
         target=""
         alt="S10"
-        title="S10"
-        coords=""
+        title="S10_1"
+        coords="442, 332, 499, 342, 493, 370, 481, 397, 428, 370, 436, 353"
         shape="poly"
       />
       <area
-        (click)="dartThrown('D20')"
+        class="boardarea"
+        (click)="dartThrown('T10')"
         target=""
         alt="T10"
         title="T10"
-        coords=""
+        coords="437, 332, 434, 348, 426, 368, 418, 364, 425, 347, 429, 330"
+        shape="poly"
+      />
+      <area
+        class="boardarea"
+        (click)="dartThrown('S10')"
+        target=""
+        alt="S10"
+        title="S10_2"
+        coords="426, 330, 422, 345, 415, 362, 327, 318, 328, 314"
         shape="poly"
       />
 
       <area
-        (click)="dartThrown('D20')"
+        class="boardarea"
+        (click)="dartThrown('D9')"
         target=""
         alt="D9"
         title="D9"
-        coords=""
+        coords="115, 207, 130, 182, 154, 155, 164, 166, 146, 186, 130, 213"
         shape="poly"
       />
       <area
-        (click)="dartThrown('D20')"
+        class="boardarea"
+        (click)="dartThrown('S9')"
         target=""
         alt="S9"
-        title="S9"
-        coords=""
+        title="S9_1"
+        coords="167, 169, 150, 187, 132, 215, 185, 242, 196, 226, 209, 210"
         shape="poly"
       />
       <area
-        (click)="dartThrown('D20')"
+        class="boardarea"
+        (click)="dartThrown('T9')"
         target=""
         alt="T9"
         title="T9"
-        coords=""
+        coords="212, 213, 200, 226, 189, 243, 197, 247, 207, 230, 218, 218"
+        shape="poly"
+      />
+      <area
+        class="boardarea"
+        (click)="dartThrown('S9')"
+        target=""
+        alt="S9"
+        title="S9_2"
+        coords="220, 221, 209, 233, 198, 249, 286, 294, 289, 289"
         shape="poly"
       />
 
       <area
-        (click)="dartThrown('D20')"
+        class="boardarea"
+        (click)="dartThrown('D8')"
         target=""
         alt="D8"
         title="D8"
-        coords=""
+        coords="94, 342, 109, 340, 116, 372, 126, 395, 112, 401, 101, 374"
         shape="poly"
       />
       <area
-        (click)="dartThrown('D20')"
+        class="boardarea"
+        (click)="dartThrown('S8')"
         target=""
         alt="S8"
-        title="S8"
-        coords=""
+        title="S8_1"
+        coords="112, 339, 118, 365, 129, 393, 182, 366, 176, 351, 171, 330"
         shape="poly"
       />
       <area
-        (click)="dartThrown('D20')"
+        class="boardarea"
+        (click)="dartThrown('T8')"
         target=""
         alt="T8"
         title="T8"
-        coords=""
+        coords="175, 328, 178, 345, 185, 364, 193, 361, 187, 345, 183, 328"
+        shape="poly"
+      />
+      <area
+        class="boardarea"
+        (click)="dartThrown('S8')"
+        target=""
+        alt="S8"
+        title="S8_2"
+        coords="186, 327, 189, 342, 196, 360, 286, 314, 284, 311"
         shape="poly"
       />
 
       <area
-        (click)="dartThrown('D20')"
+        class="boardarea"
+        (click)="dartThrown('D7')"
         target=""
         alt="D7"
         title="D7"
-        coords=""
+        coords="153, 459, 164, 448, 182, 464, 211, 483, 204, 497, 175, 479"
         shape="poly"
       />
       <area
-        (click)="dartThrown('D20')"
+        class="boardarea"
+        (click)="dartThrown('S7')"
         target=""
         alt="S7"
-        title="S7"
-        coords=""
+        title="S7_1"
+        coords="167, 446, 208, 403, 221, 416, 240, 427, 213, 481, 184, 462"
         shape="poly"
       />
       <area
-        (click)="dartThrown('D20')"
+        class="boardarea"
+        (click)="dartThrown('T7')"
         target=""
         alt="T7"
         title="T7"
-        coords=""
+        coords="211, 401, 223, 412, 242, 424, 246, 417, 231, 407, 217, 394"
+        shape="poly"
+      />
+      <area
+        class="boardarea"
+        (click)="dartThrown('S7')"
+        target=""
+        alt="S7"
+        title="S7_2"
+        coords="220, 393, 231, 405, 247, 415, 294, 324, 291, 321"
         shape="poly"
       />
 
       <area
-        (click)="dartThrown('D20')"
+        class="boardarea"
+        (click)="dartThrown('D6')"
         target=""
         alt="D6"
         title="D6"
-        coords=""
+        coords="520, 278, 521, 307, 519, 341, 504, 338, 506, 305, 504, 280"
         shape="poly"
       />
       <area
-        (click)="dartThrown('D20')"
+        class="boardarea"
+        (click)="dartThrown('S6')"
         target=""
         alt="S6"
-        title="S6"
-        coords=""
+        title="S6_1"
+        coords="443, 289, 501, 280, 503, 308, 501, 339, 442, 329, 444, 307"
         shape="poly"
       />
       <area
-        (click)="dartThrown('D20')"
+        class="boardarea"
+        (click)="dartThrown('T6')"
         target=""
         alt="T6"
         title="T6"
-        coords=""
+        coords="439, 290, 440, 310, 438, 328, 430, 327, 431, 310, 430, 291"
+        shape="poly"
+      />
+      <area
+        class="boardarea"
+        (click)="dartThrown('S6')"
+        target=""
+        alt="S6"
+        title="S6_2"
+        coords="427, 292, 429, 308, 427, 326, 330, 312, 330, 306"
         shape="poly"
       />
 
       <area
-        (click)="dartThrown('D20')"
+        class="boardarea"
+        (click)="dartThrown('D5')"
         target=""
         alt="D5"
         title="D5"
-        coords=""
+        coords="210, 114, 238, 102, 270, 94, 274, 109, 244, 116, 217, 128"
         shape="poly"
       />
       <area
-        (click)="dartThrown('D20')"
+        class="boardarea"
+        (click)="dartThrown('S5')"
         target=""
         alt="S5"
-        title="S5"
-        coords=""
+        title="S5_1"
+        coords="219, 131, 245, 119, 274, 112, 284, 171, 264, 176, 246, 183"
         shape="poly"
       />
       <area
-        (click)="dartThrown('D20')"
+        class="boardarea"
+        (click)="dartThrown('T5')"
         target=""
         alt="T5"
         title="T5"
-        coords=""
+        coords="248, 187, 265, 179, 285, 175, 286, 184, 267, 187, 252, 195"
+        shape="poly"
+      />
+      <area
+        class="boardarea"
+        (click)="dartThrown('S5')"
+        target=""
+        alt="S5"
+        title="S5_2"
+        coords="303, 282, 298, 285, 252, 196, 268, 190, 286, 186"
         shape="poly"
       />
 
       <area
-        (click)="dartThrown('D20')"
+        class="boardarea"
+        (click)="dartThrown('D4')"
         target=""
         alt="D4"
         title="D4"
-        coords=""
+        coords="461, 157, 480, 180, 497, 208, 484, 215, 469, 191, 451, 169"
         shape="poly"
       />
       <area
-        (click)="dartThrown('D20')"
+        class="boardarea"
+        (click)="dartThrown('S4')"
         target=""
         alt="S4"
-        title="S4"
-        coords=""
+        title="S4_1"
+        coords="448, 171, 467, 194, 481, 216, 428, 244, 420, 228, 406, 213"
         shape="poly"
       />
       <area
-        (click)="dartThrown('D20')"
+        class="boardarea"
+        (click)="dartThrown('T4')"
         target=""
         alt="T4"
         title="T4"
-        coords=""
+        coords="403, 215, 415, 229, 424, 245, 417, 248, 408, 235, 397, 221"
+        shape="poly"
+      />
+      <area
+        class="boardarea"
+        (click)="dartThrown('S4')"
+        target=""
+        alt="S4"
+        title="S4_2"
+        coords="395, 223, 405, 234, 415, 250, 328, 296, 325, 292"
         shape="poly"
       />
 
       <area
-        (click)="dartThrown('D20')"
+        class="boardarea"
+        (click)="dartThrown('D3')"
         target=""
         alt="D3"
         title="D3"
-        coords=""
+        coords="273, 520, 275, 505, 306, 507, 334, 505, 336, 520, 305, 522"
         shape="poly"
       />
       <area
-        (click)="dartThrown('D20')"
+        class="boardarea"
+        (click)="dartThrown('S3')"
         target=""
         alt="S3"
-        title="D3"
-        coords=""
+        title="S3_1"
+        coords="284, 443, 303, 444, 324, 443, 334, 501, 305, 504, 276, 501"
         shape="poly"
       />
       <area
-        (click)="dartThrown('D20')"
+        class="boardarea"
+        (click)="dartThrown('T3')"
         target=""
         alt="T3"
-        title="D3"
-        coords=""
+        title="T3"
+        coords="286, 431, 285, 439, 305, 441, 323, 439, 322, 431, 304, 433"
+        shape="poly"
+      />
+      <area
+        class="boardarea"
+        (click)="dartThrown('S3')"
+        target=""
+        alt="S3"
+        title="S3_2"
+        coords="287, 428, 302, 330, 307, 330, 322, 428, 305, 429"
         shape="poly"
       />
 
       <area
-        (click)="dartThrown('D20')"
+        class="boardarea"
+        (click)="dartThrown('D2')"
         target=""
         alt="D2"
         title="D2"
-        coords=""
+        coords="405, 499, 398, 486, 422, 471, 444, 452, 455, 463, 431, 483"
         shape="poly"
       />
       <area
-        (click)="dartThrown('D20')"
+        class="boardarea"
+        (click)="dartThrown('S2')"
         target=""
         alt="S2"
-        title="S2"
-        coords=""
+        title="S2_1"
+        coords="369, 429, 386, 420, 400, 407, 442, 449, 421, 467, 396, 482"
         shape="poly"
       />
       <area
-        (click)="dartThrown('D20')"
+        class="boardarea"
+        (click)="dartThrown('T2')"
         target=""
         alt="T2"
         title="T2"
-        coords=""
+        coords="363, 418, 367, 426, 384, 416, 398, 405, 392, 399, 378, 410"
+        shape="poly"
+      />
+      <area
+        class="boardarea"
+        (click)="dartThrown('S2')"
+        target=""
+        alt="S2"
+        title="S2_2"
+        coords="362, 416, 316, 328, 320, 325, 390, 396, 376, 408"
         shape="poly"
       />
 
       <area
-        (click)="dartThrown('D20')"
+        class="boardarea"
+        (click)="dartThrown('D1')"
         target=""
         alt="D1"
         title="D1"
-        coords=""
+        coords="342, 95, 375, 103, 404, 115, 397, 128, 368, 116, 340, 110"
         shape="poly"
       />
       <area
-        (click)="dartThrown('D20')"
+        class="boardarea"
+        (click)="dartThrown('S1')"
         target=""
         alt="S1"
-        title="D1"
-        coords=""
+        title="S1_1"
+        coords="340, 114, 367, 120, 395, 132, 368, 185, 349, 176, 331, 172"
         shape="poly"
       />
       <area
-        (click)="dartThrown('D20')"
+        class="boardarea"
+        (click)="dartThrown('T1')"
         target=""
         alt="T1"
-        title="D1"
-        coords=""
+        title="T1"
+        coords="330, 176, 348, 180, 366, 188, 363, 196, 346, 187, 328, 184"
+        shape="poly"
+      />
+      <area
+        class="boardarea"
+        (click)="dartThrown('S1')"
+        target=""
+        alt="S1"
+        title="S1_2"
+        coords="328, 187, 344, 191, 361, 199, 318, 286, 313, 284"
         shape="poly"
       />
 
       <area
-        (click)="dartThrown('D20')"
+        class="boardarea"
+        (click)="dartThrown('B50')"
         target=""
         alt="B50"
         title="B50"
-        coords=""
+        coords="304, 306, 11"
         shape="circle"
       />
       <area
-        (click)="dartThrown('D20')"
+        class="boardarea"
+        (click)="dartThrown('B25')"
         target=""
-        alt="R25"
-        title="R25"
-        coords=""
+        alt="B25"
+        title="B25_U"
+        coords=" 286, 306, 292, 306, 294, 300, 299, 296, 306, 294, 312, 295, 317, 301, 319, 308, 327, 309, 325, 299, 319, 291, 310, 287, 299, 287, 292, 292, 287, 298"
         shape="poly"
       />
       <area
-        (click)="dartThrown('D20')"
+        class="boardarea"
+        (click)="dartThrown('B25')"
+        target=""
+        alt="B25"
+        title="B25_L"
+        coords="286, 307, 292, 307, 294,314, 300, 319, 307, 320, 313, 318, 318, 309, 327, 309, 325, 317, 319, 322, 313, 326, 304, 328, 295, 325, 289, 319, 286, 313"
+        shape="poly"
+      />
+      <area
+        class="boardarea"
+        (click)="dartThrown('M0')"
         target=""
         alt="M0"
         title="M0"
-        coords=""
+        coords="453,520,612,576"
         shape="rect"
       />
     </map>
   </div>
   <div class="gamereport">
     <div class="reportdata" id="playername">{{ currentPlayerNick }}</div>
-    <div class="reportdata" id="round">Round: <span class="textspecial" id="counterspecial">{{ roundNo }}</span></div>
-    <div class="reportdata" id="arrowcount"><span class="textspecial" id="counterspecial">{{ arrowsLeft }}</span> arrows left</div>
-    <div class="reportdata" id="target">Target: <span class="textspecial" id="counterspecial">{{ currentTarget }}</span></div>
-    <input type="submit" class="btn" value="Home" (click)="home()">
+    <div class="reportdata" id="round">
+      Round: <span class="textspecial" id="counterspecial">{{ roundNo }}</span>
+    </div>
+    <div class="reportdata" id="arrowcount">
+      <span class="textspecial" id="counterspecial">{{ arrowsLeft }}</span>
+      arrows left
+    </div>
+    <div class="reportdata" id="target">
+      Target:
+      <span class="textspecial" id="counterspecial">{{ currentTarget }}</span>
+    </div>
+
+    <div class="reportdata" id="roundscore">
+      SCORE:
+      <span class="textspecial" id="counterspecial">{{ roundScore }}</span>
+    </div>
+
+    <input type="submit" class="btn" value="Abort Game" (click)="abortGame()" />
+    
+    <div class="h3orange"><h3>Standings</h3></div>
+    <div *ngFor="let item of resultList">
+      <span>
+        {{ item.name }}: {{ item.score }} points
+      </span>
+    </div>
+
   </div>
+</div>
+<div class="fullscreen" id="results">
+  <h1>RESULTS</h1>
+  <div *ngFor="let item of resultList">
+    <span>
+      {{ item.name }}: {{ item.score }} points <br/>
+    </span>
+  </div>
+  <input type="submit" class="btn" value="HOME" (click)="abortGame()" />
 </div>

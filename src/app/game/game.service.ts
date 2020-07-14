@@ -10,7 +10,6 @@ export class GameService {
   constructor(private http: HttpClient) { }
 
   addGame(selected): Observable<HttpResponse<any>> {
-    console.log('Selected: ' + selected);
     return this.http.post('http://localhost:8090/addgame', selected, {observe: 'response'});
   }
 
