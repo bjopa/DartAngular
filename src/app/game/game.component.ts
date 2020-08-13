@@ -223,9 +223,8 @@ export class GameComponent implements OnInit {
         }
         this.currentPlayerNick = this.selected[this.currentPlayerCounter];
 
-        // om spelet är slut
-        if (this.roundNo === 2) {
-          // 9
+        // om spelet är slut, siffran ska vara 9 vid prodversion
+        if (this.roundNo === 9) {
           this.endGame();
         }
       }
