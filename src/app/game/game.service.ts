@@ -13,8 +13,12 @@ export class GameService {
     return this.http.post('http://localhost:8090/addgame', selected, {observe: 'response'});
   }
 
-  reportThrow(throwdata): Observable<HttpResponse<any>> {
-    return this.http.post('http://localhost:8090/reportthrow', throwdata , {observe: 'response'});
+  reportThrow(throwData: string): Observable<HttpResponse<any>> {
+    return this.http.post('http://localhost:8090/reportthrow', throwData , {observe: 'response'});
+  }
+
+  reportGame(gameData: string): Observable<HttpResponse<any>> {
+    return this.http.post('http://localhost:8090/reportgame', gameData , {observe: 'response'});
   }
 
 }

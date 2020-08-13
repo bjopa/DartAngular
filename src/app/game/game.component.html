@@ -10,12 +10,13 @@
   >
   </ng-select>
   <br />
-  <button class="btn" (click)="initGame()">PLAY</button>
+  <button class="btn" (click)="initGame()">START</button>
 </div>
+<!-- XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX -->
 <div class="fullscreen" id="gameboard">
-  <div class="dartboard">
+    <div class="dartboard">
     <img src="./assets/images/dartboard.png" usemap="#image-map" />
-    <map class="dartboard" name="image-map">
+    <map name="image-map">
       <area
         class="boardarea"
         (click)="dartThrown('D20')"
@@ -797,39 +798,55 @@
   <div class="gamereport">
     <div class="reportdata" id="playername">{{ currentPlayerNick }}</div>
     <div class="reportdata" id="round">
-      Round: <span class="textspecial" id="counterspecial">{{ roundNo }}</span>
+      Round: <span class="counterspecial">{{ roundNo }}</span>
     </div>
     <div class="reportdata" id="arrowcount">
-      <span class="textspecial" id="counterspecial">{{ arrowsLeft }}</span>
-      arrows left
+      <span class="counterspecial">{{ arrowsLeft }}</span>
+      darts left
     </div>
     <div class="reportdata" id="target">
       Target:
-      <span class="textspecial" id="counterspecial">{{ currentTarget }}</span>
+      <span class="counterspecial">{{ currentTarget }}</span>
     </div>
 
     <div class="reportdata" id="roundscore">
       SCORE:
-      <span class="textspecial" id="counterspecial">{{ roundScore }}</span>
+      <span class="counterspecial">{{ roundScore }}</span>
+    </div>
+    <div id="undodiv" *ngIf="undoable">
+      <span id="lasttext">Last: {{ savePlayerState[0] }} on {{ savePlayerState[3] }}</span>
+        <input
+          type="submit"
+          class="btn"
+          id="undobtn"
+          value="Undo Last Throw"
+          (click)="undoThrow()"
+        />
+    </div>
+    <div>
+      <!-- <input
+        type="submit"
+        class="btn"
+        value="Abort Game"
+        (click)="abortGame()"
+      /> -->
     </div>
 
-    <input type="submit" class="btn" value="Abort Game" (click)="abortGame()" />
-    
     <div class="h3orange"><h3>Standings</h3></div>
     <div *ngFor="let item of resultList">
-      <span>
-        {{ item.name }}: {{ item.score }} points
-      </span>
+      <span> {{ item.name }}: {{ item.score }} points </span>
     </div>
-
   </div>
 </div>
+
 <div class="fullscreen" id="results">
   <h1>RESULTS</h1>
   <div *ngFor="let item of resultList">
-    <span>
-      {{ item.name }}: {{ item.score }} points <br/>
-    </span>
+    <div class="reportdata">
+      <p style="color: whitesmoke; font-size: larger;">
+        {{ item.name }} : <span class="counterspecial">{{ item.score }}</span>
+      </p>
+    </div>
   </div>
   <input type="submit" class="btn" value="HOME" (click)="abortGame()" />
 </div>

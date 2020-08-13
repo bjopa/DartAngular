@@ -36,6 +36,10 @@ export class GameComponent implements OnInit {
   numberOfPlayers = 0; // total no of players in game
 
   storageData: any;
+  savePlayerState = [];
+
+  undoable = false;
+  sendableThrow = false;
 
   constructor(
     private gameService: GameService,
@@ -44,8 +48,8 @@ export class GameComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    document.getElementById('selector').style.display = 'none'; // block
-    document.getElementById('gameboard').style.display = 'grid'; // none
+    document.getElementById('selector').style.display = 'block'; // block
+    document.getElementById('gameboard').style.display = 'none'; // none
     document.getElementById('results').style.display = 'none'; // none
     this.getPlayers();
   }
@@ -112,12 +116,38 @@ export class GameComponent implements OnInit {
    */
 
   dartThrown(hit: string) {
-    // if (!this.gameFinished) {
-    if (!this.gameFinished && window.confirm('Confirm hit on ' + hit)) {
+    this.undoable = true;
+    if (!this.gameFinished) {
+      // skriv förra kastet till db
+      if (this.sendableThrow) {
+        this.reportThrow(
+          this.savePlayerState[0],
+          this.savePlayerState[1],
+          this.savePlayerState[2],
+          this.savePlayerState[3]
+        );
+      }
+
+      // spara info rapport och undo
+      this.savePlayerState[0] = this.currentPlayerNick;
+      this.savePlayerState[1] = this.currentGameId;
+      this.savePlayerState[2] = this.dartNumber;
+      this.savePlayerState[3] = hit;
+      this.savePlayerState[4] = this.roundNo;
+      this.savePlayerState[5] = this.arrowsLeft;
+      this.savePlayerState[6] = this.hitCounter;
+      this.savePlayerState[7] = this.roundScore;
+      this.savePlayerState[8] = this.currentPlayerCounter;
+      this.savePlayerState[9] = parseInt(
+        sessionStorage.getItem(this.currentPlayerNick),
+        10
+      );
+      this.sendableThrow = true;
+
       // kolla om man träffat target
       const correctHit = this.checkHit(hit, this.currentTarget);
 
-      // bestäm pilnr totalt per spelare - ANVÄNDS???
+      // bestäm pilnr totalt per spelare
       this.dartNumber =
         this.roundNo + 2 * (this.roundNo - 1) + (3 - this.arrowsLeft);
 
@@ -152,17 +182,17 @@ export class GameComponent implements OnInit {
       }
 
       // summering per pil
-      this.roundScore = correctHit ? this.roundScore + this.singleScore : this.roundScore;
+      this.singleScore = correctHit ? this.singleScore : 0;
+      this.roundScore = this.roundScore + this.singleScore;
 
       // slut på spelares omgång
       if (this.arrowsLeft === 0) {
-
-        // kolla om 41 var korrekt
+        // kolla om 41 var korrekt kastat
         if (
           this.roundNo === 6 &&
           (this.hitCounter !== 3 || this.roundScore !== 41)
         ) {
-          this.roundScore = 0;
+          this.roundScore = 0; // om fail, nollställ rundans poäng
         }
 
         // hämta, räkna om och spara totalpoäng för spelare
@@ -179,7 +209,7 @@ export class GameComponent implements OnInit {
         // sortera aktuell ställning för resultatlista
         this.createStandings();
 
-        // återställ kontrollvariabler
+        // justera kontrollvariabler
         this.hitCounter = 0;
         this.arrowsLeft = 3;
         this.currentPlayerCounter++;
@@ -194,16 +224,9 @@ export class GameComponent implements OnInit {
         this.currentPlayerNick = this.selected[this.currentPlayerCounter];
 
         // om spelet är slut
-        if (this.roundNo === 9) {
+        if (this.roundNo === 2) {
           // 9
-
-          // TODO skicka data för alla spelare
-
-          // sätt variabler till rätt värde
-          this.gameFinished = true;
-          document.getElementById('selector').style.display = 'none';
-          document.getElementById('gameboard').style.display = 'none';
-          document.getElementById('results').style.display = 'block';
+          this.endGame();
         }
       }
     }
@@ -249,6 +272,69 @@ export class GameComponent implements OnInit {
       });
     }
   }
+
+  reportThrow(
+    currentPlayerNick: string,
+    currentGameId: string,
+    dartNumber: number,
+    hit: string
+  ): void {
+    const reportThrowData =
+      currentPlayerNick + '-' + currentGameId + '-' + dartNumber + '-' + hit;
+    this.gameService
+      .reportThrow(reportThrowData)
+      .toPromise()
+      .then((resp) => {
+        console.log(reportThrowData);
+      });
+  }
+
+  undoThrow(): void {
+    if (!this.undoable) {
+      alert('Can\'t undo');
+    } else {
+      this.currentPlayerNick = this.savePlayerState[0];
+      this.roundNo = this.savePlayerState[4];
+      this.arrowsLeft = this.savePlayerState[5];
+      this.hitCounter = this.savePlayerState[6];
+      this.roundScore = this.savePlayerState[7];
+      this.currentPlayerCounter = this.savePlayerState[8];
+      sessionStorage.setItem(
+        (this.currentPlayerNick = this.savePlayerState[0]),
+        this.savePlayerState[9]
+      );
+      this.currentTarget = this.targets[this.roundNo - 1];
+      this.sendableThrow = false;
+      this.undoable = false;
+    }
+  }
+
+  endGame(): void {
+    // rapportera slutresultat
+       // tslint:disable-next-line: prefer-for-of
+       for (let i = 0; i < this.scores.length; i++) {
+         const reportGameData =
+           this.scores[i][0] +
+           '-' +
+           this.currentGameId +
+           '-' +
+           this.scores[i][1];
+         this.gameService
+           .reportGame(reportGameData)
+           .toPromise()
+           .then((resp) => {
+             console.log(
+               'Game reported to db for player ' + this.scores[i][0]
+             );
+           });
+       }
+
+       // sätt variabler till rätt värde
+       this.gameFinished = true;
+       document.getElementById('selector').style.display = 'none';
+       document.getElementById('gameboard').style.display = 'none';
+       document.getElementById('results').style.display = 'block';
+}
 
   // TODO rename as cancel?? eller ngt annat fiffgt....
   abortGame(): void {

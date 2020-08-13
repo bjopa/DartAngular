@@ -1,54 +1,61 @@
-div {
-    display: inline;
-}
-
 ng-select {
-    width: 500px;
+  width: 500px;
 }
 
 .btn {
-    margin: 0 auto auto 0;
+  margin: 10px auto 10px auto;
+}
+
+#undobtn {
+  padding: 1em 10px;
+  margin: 20px;
+}
+
+#lasttext {
+  font-size: 0.5em;
 }
 
 #gameboard {
-    display: none;
-    grid-template-columns: auto 35%;
+  display: none;
+  grid-template-columns: auto 35%;
 }
 
-#selector {
-    display: block;
+#dimmer {
+  display: block;
+  opacity: 0.8;
 }
 
 .dartboard {
-    margin: 10px;
+  margin: 10px;
 }
 
-.boardarea :hover {
-    cursor: pointer;
+.boardarea:hover {
+  cursor: pointer;
 }
 
 .gamereport {
-    display: flex;
-    flex-direction: column;
-    background: #0e3a5e;
-    //border: solid 2px whitesmoke;
-    border-radius: 10px;
-    margin: 10px 10px 10px 0;
-    color: white;
-    font-size: 2em;
-    font-weight: bolder;
-    text-align: center;
+  background: #0e3a5e;
+  border-radius: 10px;
+  margin: 10px 10px 10px 0;
+  color: white;
+  font-size: 2em;
+  font-weight: bolder;
+  text-align: center;
 }
 
 .h3orange {
-    color: #f58220;
+  color: #f58220;
 }
 
 #playername {
-    text-transform: uppercase;
-    color: #f58220;
+  text-transform: uppercase;
+  color: #f58220;
 }
 
-#counterspecial {
-    color: greenyellow;
+.counterspecial {
+  color: greenyellow;
+}
+
+#results {
+  text-align: center;
 }
