@@ -224,7 +224,7 @@ export class GameComponent implements OnInit {
         this.currentPlayerNick = this.selected[this.currentPlayerCounter];
 
         // om spelet är slut, siffran ska vara 9 vid prodversion
-        if (this.roundNo === 9) {
+        if (this.roundNo === 1) {
           this.endGame();
         }
       }
@@ -278,8 +278,24 @@ export class GameComponent implements OnInit {
     dartNumber: number,
     hit: string
   ): void {
+    // const reportThrowData =
+    //   currentPlayerNick + '-' + currentGameId + '-' + dartNumber + '-' + hit;
+
     const reportThrowData =
-      currentPlayerNick + '-' + currentGameId + '-' + dartNumber + '-' + hit;
+      timestamp +
+      '-' +
+      currentPlayerNick +
+      '-' +
+      currentGameId +
+      '-' +
+      dartNumber +
+      '-' +
+      target +
+      '-' +
+      hit +
+      '-' +
+      score;
+
     this.gameService
       .reportThrow(reportThrowData)
       .toPromise()
@@ -290,7 +306,7 @@ export class GameComponent implements OnInit {
 
   undoThrow(): void {
     if (!this.undoable) {
-      alert('Can\'t undo');
+      alert("Can't undo");
     } else {
       this.currentPlayerNick = this.savePlayerState[0];
       this.roundNo = this.savePlayerState[4];
@@ -302,6 +318,7 @@ export class GameComponent implements OnInit {
         (this.currentPlayerNick = this.savePlayerState[0]),
         this.savePlayerState[9]
       );
+      this.createStandings();
       this.currentTarget = this.targets[this.roundNo - 1];
       this.sendableThrow = false;
       this.undoable = false;
@@ -310,30 +327,24 @@ export class GameComponent implements OnInit {
 
   endGame(): void {
     // rapportera slutresultat
-       // tslint:disable-next-line: prefer-for-of
-       for (let i = 0; i < this.scores.length; i++) {
-         const reportGameData =
-           this.scores[i][0] +
-           '-' +
-           this.currentGameId +
-           '-' +
-           this.scores[i][1];
-         this.gameService
-           .reportGame(reportGameData)
-           .toPromise()
-           .then((resp) => {
-             console.log(
-               'Game reported to db for player ' + this.scores[i][0]
-             );
-           });
-       }
+    // tslint:disable-next-line: prefer-for-of
+    for (let i = 0; i < this.scores.length; i++) {
+      const reportGameData =
+        this.scores[i][0] + '-' + this.currentGameId + '-' + this.scores[i][1];
+      this.gameService
+        .reportGame(reportGameData)
+        .toPromise()
+        .then((resp) => {
+          console.log('Game reported to db for player ' + this.scores[i][0]);
+        });
+    }
 
-       // sätt variabler till rätt värde
-       this.gameFinished = true;
-       document.getElementById('selector').style.display = 'none';
-       document.getElementById('gameboard').style.display = 'none';
-       document.getElementById('results').style.display = 'block';
-}
+    // sätt variabler till rätt värde
+    this.gameFinished = true;
+    document.getElementById('selector').style.display = 'none';
+    document.getElementById('gameboard').style.display = 'none';
+    document.getElementById('results').style.display = 'block';
+  }
 
   // TODO rename as cancel?? eller ngt annat fiffgt....
   abortGame(): void {

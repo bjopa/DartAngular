@@ -824,21 +824,20 @@
         />
     </div>
     <div>
-      <!-- <input
+      <input
         type="submit"
         class="btn"
         value="Abort Game"
         (click)="abortGame()"
-      /> -->
+      />
     </div>
-
     <div class="h3orange"><h3>Standings</h3></div>
-    <div *ngFor="let item of resultList">
+    <div *ngFor="let item of resultList" class="smallertext">
       <span> {{ item.name }}: {{ item.score }} points </span>
     </div>
   </div>
 </div>
-
+<!-- XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX -->
 <div class="fullscreen" id="results">
   <h1>RESULTS</h1>
   <div *ngFor="let item of resultList">

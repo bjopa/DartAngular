@@ -7,8 +7,8 @@ ng-select {
 }
 
 #undobtn {
-  padding: 1em 10px;
-  margin: 20px;
+  padding: 1em 24px;
+  margin: 10px auto 10px auto;
 }
 
 #lasttext {
@@ -45,6 +45,10 @@ ng-select {
 
 .h3orange {
   color: #f58220;
+}
+
+.smallertext {
+    font-size: 0.75em;
 }
 
 #playername {
