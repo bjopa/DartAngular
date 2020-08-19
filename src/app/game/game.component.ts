@@ -116,15 +116,19 @@ export class GameComponent implements OnInit {
    */
 
   dartThrown(hit: string) {
+    console.log('DartNumber = ' + this.dartNumber);
+
     this.undoable = true;
     if (!this.gameFinished) {
       // skriv förra kastet till db
       if (this.sendableThrow) {
         this.reportThrow(
-          this.savePlayerState[0],
+          this.savePlayerState[0], //nickname
           this.savePlayerState[1],
           this.savePlayerState[2],
-          this.savePlayerState[3]
+          this.savePlayerState[3],
+          this.savePlayerState[10],
+          this.singleScore
         );
       }
 
@@ -142,17 +146,18 @@ export class GameComponent implements OnInit {
         sessionStorage.getItem(this.currentPlayerNick),
         10
       );
+      this.savePlayerState[10] = this.currentTarget;
       this.sendableThrow = true;
 
       // kolla om man träffat target
       const correctHit = this.checkHit(hit, this.currentTarget);
 
+      // minska kvarvarande antal pilar
+      this.arrowsLeft--;
+
       // bestäm pilnr totalt per spelare
       this.dartNumber =
         this.roundNo + 2 * (this.roundNo - 1) + (3 - this.arrowsLeft);
-
-      // minska kvarvarande antal pilar
-      this.arrowsLeft--;
 
       // poängräkning en pil
       switch (hit.substring(0, 1)) {
@@ -222,9 +227,21 @@ export class GameComponent implements OnInit {
           this.currentPlayerCounter = 0;
         }
         this.currentPlayerNick = this.selected[this.currentPlayerCounter];
+        this.dartNumber =
+          this.roundNo + 2 * (this.roundNo - 1) + (3 - this.arrowsLeft);
 
         // om spelet är slut, siffran ska vara 9 vid prodversion
-        if (this.roundNo === 1) {
+        if (this.roundNo === 9) {
+          if (this.sendableThrow) {
+            this.reportThrow(
+              this.savePlayerState[0],
+              this.savePlayerState[1],
+              this.savePlayerState[2],
+              this.savePlayerState[3],
+              this.savePlayerState[10],
+              this.singleScore
+            );
+          }
           this.endGame();
         }
       }
@@ -276,23 +293,32 @@ export class GameComponent implements OnInit {
     currentPlayerNick: string,
     currentGameId: string,
     dartNumber: number,
-    hit: string
+    hit: string,
+    designatedTarget: string,
+    score: number
   ): void {
     // const reportThrowData =
     //   currentPlayerNick + '-' + currentGameId + '-' + dartNumber + '-' + hit;
 
+    const areaHit = hit.substring(1);
+
+    // console.log('nick:' + currentPlayerNick);
+    // console.log('gameId:' + currentGameId);
+    // console.log('dartNo:' + dartNumber);
+    // console.log('desTarg:' + designatedTarget);
+    // console.log('areaHit:' + areaHit);
+    // console.log('score:' + score);
+
     const reportThrowData =
-      timestamp +
-      '-' +
       currentPlayerNick +
       '-' +
       currentGameId +
       '-' +
       dartNumber +
       '-' +
-      target +
+      designatedTarget +
       '-' +
-      hit +
+      areaHit +
       '-' +
       score;
 
@@ -300,7 +326,7 @@ export class GameComponent implements OnInit {
       .reportThrow(reportThrowData)
       .toPromise()
       .then((resp) => {
-        console.log(reportThrowData);
+        // console.log(reportThrowData);
       });
   }
 
